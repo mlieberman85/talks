@@ -123,7 +123,7 @@ theme: gaia
 - Analytics provides insights and helps with identification of issues
 - Automation helps with remediation
 - Policy helps with enforcement
-- Governance help with audit and regulationslike keeping the CISO out of jail 
+- Governance helps with audit and regulations, i.e. keeping the CISO out of jail 
 
 ---
 
@@ -214,7 +214,7 @@ http://localhost:3000/?path=288315...
 
 - Platform Engineering
   - Build your organization's IT like a set of APIs and services.
-- Further standardization in the sapce
+- Further standardization in the space
 
 ---
 
