@@ -74,8 +74,9 @@ theme: gaia
 # Open Source Security Communication
 
 - Sometimes it can be the worst of both worlds
-- Security stakeholders attempting to be gatekeeper
-- Open source maintainers 
+- Security stakeholders attempting to be gatekeepers
+- Maintainers have enough on their plate
+- Too much security noise
 
 ---
 
