@@ -1,6 +1,10 @@
 ---
 marp: true
 theme: gaia
+style: |
+    section{
+      justify-content: flex-start;
+    }
 ---
 
 # Skootrs
@@ -98,7 +102,6 @@ https://github.com/mlieberman85/talks
   - in-toto layouts
 - API calls to repo server
   - Branch protection
-- 
 
 ---
 
@@ -169,6 +172,34 @@ https://github.com/mlieberman85/talks
 - No logic
 - Needs to be (de)serializable
 
+<style scoped>
+pre {
+  font-size: 50%;
+}
+</style>
+```rust
+#[derive(Serialize, Deserialize, ToSchema, Clone, Debug)]
+pub struct InitializedProject {
+    pub repo: InitializedRepo,
+    pub ecosystem: InitializedEcosystem,
+    pub source: InitializedSource,
+    pub facets: Vec<InitializedFacet>,
+}
+
+#[derive(Serialize, Deserialize, ToSchema, Clone, Debug)]
+pub struct ProjectParams {
+    pub name: String,
+    pub repo_params: RepoParams,
+    pub ecosystem_params: EcosystemParams,
+    pub source_params: SourceParams,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, ToSchema)]
+pub enum InitializedRepo {
+    Github(InitializedGithubRepo)
+}
+```
+
 ---
 
 ## Services
@@ -189,6 +220,17 @@ https://github.com/mlieberman85/talks
 - Runs it as a daemon
 - Pulls metadata from state store
 
+```shell
+Usage: skootrs <COMMAND>
+
+Commands:
+  create
+  daemon
+  dump
+  get-facet
+  help       Print this message or the help of the given subcommand(s)
+```
+
 ---
 
 ## REST Server
@@ -196,11 +238,56 @@ https://github.com/mlieberman85/talks
 - OpenAPI
 - Calls the services and should have feature parity with the CLI
 
+```rust
+#[utoipa::path(
+    post,
+    path = "/project",
+    request_body = ProjectParams,
+    responses( 
+        (status = 201, description = "Project created successfully", body = InitializedProject),
+        (status = 409, description = "Project unable to be created", body = ErrorResponse, example = json!(ErrorResponse::InitializationError("Unable to create repo".into())))
+    )
+)]
+pub(super) async fn create_project(params: Json<ProjectParams>, project_store: Data<ProjectStore>) -> Result<impl Responder, actix_web::Error> {
+    // TODO: This should be initialized elsewhere
+    let project_service = LocalProjectService {
+        repo_service: LocalRepoService {},
+        ecosystem_service: LocalEcosystemService {},
+        source_service: LocalSourceService {},
+        facet_service: LocalFacetService {},
+    };
+
+    let initialized_project = project_service.initialize(params.into_inner()).await
+    .map_err(|err| actix_web::error::ErrorInternalServerError(err.to_string()))?;
+    project_store.projects.lock().await.push(initialized_project.clone());
+    Ok(HttpResponse::Ok().json(initialized_project))
+}
+```
+
 ---
 
 ## State Store
 
-- Writes project metadata to a database
+- Writes project metadata to a database (currently using SurrealDB)
+
+```rust
+impl SurrealProjectStateStore {
+    pub async fn create(&self, project: InitializedProject) -> Result<Option<InitializedProject>, SkootError> {
+        let created = self.db
+            .create(("project", project.repo.full_url()))
+            .content(project)
+            .await?;
+        Ok(created)
+    }
+
+    pub async fn select(&self, repo_url: String) -> Result<Option<InitializedProject>, SkootError> {
+        let record = self.db
+            .select(("project", repo_url))
+            .await?;
+        Ok(record)
+    }
+}
+```
 
 ---
 
@@ -224,9 +311,11 @@ https://github.com/mlieberman85/talks
 ## Roadmap (very early)
 
 - Support Maven and Python
-- Support Gitlab
+- Support other repo servers
 - Support in-toto, TUF, and Gittuf
   - Just basic layouts
 - Make telemetry better
+- Integrate metadata to GUAC
 - Make CLI able to call remote API directly
 - Ability to update existing project
+- Fix up a lot of the abstractions
