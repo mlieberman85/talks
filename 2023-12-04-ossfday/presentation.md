@@ -101,17 +101,17 @@ theme: gaia
 
 ---
 
-| NO      | YES |
-| ----------- | ----------- |
-| Proprietary SCA Reports | SBOMs |
-| Unstructured build logs and practices  | SLSA       |
-| Exceptions via email | VEX |
-| Proprietary health metrics | Scorecard |
-| Custom security rule enforcement | Allstar |
-| Arbitrary project layouts | Security Insights |
-| Control spreadsheets for ingestion | S2C2F and OSCAL | 
-| Tight coupling of SDLC systems | CD Events |
-| Custom analytics and data stores | GUAC
+| NO                                    | YES               |
+| ------------------------------------- | ----------------- |
+| Proprietary SCA Reports               | SBOMs             |
+| Unstructured build logs and practices | SLSA              |
+| Exceptions via email                  | VEX               |
+| Proprietary health metrics            | Scorecard         |
+| Custom security rule enforcement      | Allstar           |
+| Arbitrary project layouts             | Security Insights |
+| Control spreadsheets for ingestion    | S2C2F and OSCAL   |
+| Tight coupling of SDLC systems        | CD Events         |
+| Custom analytics and data stores      | GUAC              |
 
 ---
 

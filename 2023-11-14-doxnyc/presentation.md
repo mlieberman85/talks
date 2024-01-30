@@ -16,7 +16,7 @@ theme: gaia
 - Co-author of Securing the Software Supply Chain from Manning
 - OpenSSF Technical Advisory Council member and SLSA Steering Committee
 - CNCF Technical Advisory Group Security Lead
-- Co-creator and maintainer of GUAC an OpenSSF Incubating Project 
+- Co-creator and maintainer of GUAC an OpenSSF Incubating Project
 
 ---
 
