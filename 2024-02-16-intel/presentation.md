@@ -7,9 +7,7 @@ style: |
     }
 ---
 
-# Skootrs
-
-## Build the shield for open source projects
+# The Open Source Security Sandwich
 
 ![image](../common/images/qr-code-repo.png)
 https://github.com/mlieberman85/talks
@@ -32,6 +30,7 @@ https://github.com/mlieberman85/talks
 - Security is not seen as  an end user feature
 - Security can be secretive (though it shouldn't be)
 - Not as much open source security tooling
+- Little "proof" that end users can see that it works
 
 <footer><p class="attribution"><a target="_blank" rel="noopener noreferrer" href="../2023-12-04-ossfday/presentation.md">Content from my 2024 OpenSSF Day Japan Talk</a>
 
@@ -45,6 +44,7 @@ https://github.com/mlieberman85/talks
   - Infrastructure/Cloud
   - Database
   - Security
+- End users don't know what they are getting out of asking for security
 - Open Source Developers don't owe anyone anything
 
 ---
@@ -60,12 +60,12 @@ https://github.com/mlieberman85/talks
 
 | NO                                    | YES               |
 | ------------------------------------- | ----------------- |
-| Proprietary SCA Reports               | SBOMs/SBOMit      |
+| Proprietary SCA Reports               | SBOMs             |
 | Unstructured build logs and practices | SLSA              |
 | Exceptions via email                  | VEX               |
 | Proprietary health metrics            | Scorecard         |
 | Custom security rule enforcement      | Allstar           |
-| Repo service specific permissions     | Gittuf            |
+| Arbitrary project layouts             | Security Insights |
 | Control spreadsheets for ingestion    | S2C2F and OSCAL   |
 | Tight coupling of SDLC systems        | CD Events         |
 | Custom analytics and data stores      | GUAC              |
