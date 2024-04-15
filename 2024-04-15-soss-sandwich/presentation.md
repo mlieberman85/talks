@@ -40,6 +40,7 @@ https://github.com/mlieberman85/talks
 - Tools don't always work well together
 - Tools work better for certain ecosystems than others
 - Maybe use Skootrs!
+  - Follow along with: `cargo install skootrs-bin` and a `$GITHUB_TOKEN`
 
 ---
 
@@ -69,7 +70,7 @@ https://github.com/mlieberman85/talks
 
 - Go to skootrs.sh or github.com/kusaridev/skootrs
 - https://discord.gg/ea74aBray2
-- Please come contribute!
+- Please come contribute! **v0.1 out RIGHT NOW**
   - Not just code, help with docs, examples, use cases, etc.
 - Plan to support more ecosystems, tools, in-toto attestations
   - Java/Maven, Rust/Cargo, Javascript/npm
